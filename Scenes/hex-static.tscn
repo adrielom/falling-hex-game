@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnsfjh3jiecjw"]
+
+[ext_resource type="PackedScene" uid="uid://djmj4cnkqian8" path="res://Scripts/Hex/hex.glb" id="1_oxkkm"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="hex" parent="StaticBody3D" instance=ExtResource("1_oxkkm")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0393157, 0, 0.0675551)
+depth = 0.21
+polygon = PackedVector2Array(-0.840019, 0.493336, 0.0351875, 0.988735, 0.89388, 0.505721, 0.89388, -0.476822, 0.0351875, -0.992864, -0.827634, -0.485079)

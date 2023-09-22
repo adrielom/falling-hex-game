@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwyjp0dtxuyud"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Player.cs" id="1_apl0i"]
+[ext_resource type="PackedScene" uid="uid://cn710f2xn22l5" path="res://Assets/penguin_rigged_and_animated/scene.gltf" id="2_6exdv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_33ng1"]
+radius = 0.237987
+height = 1.08576
+
+[node name="penguin" type="CharacterBody3D"]
+script = ExtResource("1_apl0i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500749, 0.0885915)
+shape = SubResource("CapsuleShape3D_33ng1")
+
+[node name="scene" parent="." instance=ExtResource("2_6exdv")]
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.762391, 2.85275)
