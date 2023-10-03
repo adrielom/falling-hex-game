@@ -15,20 +15,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0393157, 0, 0.0675551)
 depth = 0.21
 polygon = PackedVector2Array(-0.840019, 0.493336, 0.0351875, 0.988735, 0.89388, 0.505721, 0.89388, -0.476822, 0.0351875, -0.992864, -0.827634, -0.485079)
 
-[node name="Pos1" type="Node3D" parent="."]
+[node name="NeighbourPositions" type="Node3D" parent="."]
+
+[node name="Pos1" type="Node3D" parent="NeighbourPositions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
-[node name="Pos3" type="Node3D" parent="."]
+[node name="Pos3" type="Node3D" parent="NeighbourPositions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -1)
 
-[node name="Pos6" type="Node3D" parent="."]
+[node name="Pos6" type="Node3D" parent="NeighbourPositions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -1)
 
-[node name="Pos2" type="Node3D" parent="."]
+[node name="Pos2" type="Node3D" parent="NeighbourPositions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 
-[node name="Pos4" type="Node3D" parent="."]
+[node name="Pos4" type="Node3D" parent="NeighbourPositions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 1)
 
-[node name="Pos5" type="Node3D" parent="."]
+[node name="Pos5" type="Node3D" parent="NeighbourPositions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 1)
+
+[node name="positionLabel" type="Label3D" parent="."]
+transform = Transform3D(-1, 4.37114e-08, -4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, 1, 4.37114e-08, 0, 0.0666993, 0)
+text = "olá"
