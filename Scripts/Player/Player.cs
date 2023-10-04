@@ -4,52 +4,47 @@ public partial class Player : CharacterBody3D
 {
 	// How fast the player moves in meters per second.
 	[Export]
-	public int Speed { get; set; } = 14;
+	public float Speed { get; set; } = 14;
 	// The downward acceleration when in the air, in meters per second squared.
 	[Export]
-	public int FallAcceleration { get; set; } = 75;
+	public float FallAcceleration { get; set; } = 9.8f;
 
 	private Vector3 _targetVelocity = Vector3.Zero;
+	private Node3D pivot;
+
+	public override void _Ready()
+	{
+		pivot = GetNode<Node3D>("Pivot");
+	}
+
 
 	public override void _PhysicsProcess(double delta)
 	{
-		var direction = Vector3.Zero;
-
-		if (Input.IsActionPressed("ui_left"))
+		if (!IsOnFloor())
 		{
-			direction.X += 1.0f;
-		}
-		if (Input.IsActionPressed("ui_right"))
-		{
-			direction.X -= 1.0f;
-		}
-		if (Input.IsActionPressed("ui_up"))
-		{
-			direction.Z += 1.0f;
-		}
-		if (Input.IsActionPressed("ui_down"))
-		{
-			direction.Z -= 1.0f;
+			GD.Print("here");
+			Velocity -= new Vector3(Velocity.X, FallAcceleration * (float)delta, Velocity.Z);
 		}
 
+		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		{
+			Velocity = new Vector3(Velocity.X, Speed, Velocity.Z);
+		}
+
+		var verticalDir = Input.GetAxis("ui_down", "ui_up");
+		var horizontalDir = Input.GetAxis("ui_left", "ui_right");
+		var direction = (Transform.Basis * new Vector3(-horizontalDir, 0, verticalDir)).Normalized();
 		if (direction != Vector3.Zero)
 		{
-			direction = direction.Normalized();
-			GetNode<Node3D>("Pivot").LookAt(Position + direction, Vector3.Up);
+			Velocity = new Vector3(direction.X * Speed, 0, direction.Z * Speed);
 		}
-
-		// Ground velocity
-		_targetVelocity.X = direction.X * Speed;
-		_targetVelocity.Z = direction.Z * Speed;
-
-		// Vertical velocity
-		if (!IsOnFloor()) // If in the air, fall towards the floor. Literally gravity
+		else
 		{
-			_targetVelocity.Y -= FallAcceleration * (float)delta;
+
+			Velocity = Vector3.Zero;
 		}
 
-		// Moving the character
-		Velocity = _targetVelocity;
 		MoveAndSlide();
+
 	}
 }

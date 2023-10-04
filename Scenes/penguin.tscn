@@ -9,6 +9,7 @@ height = 1.08576
 
 [node name="penguin" type="CharacterBody3D"]
 script = ExtResource("1_apl0i")
+Speed = 6.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500749, 0.0885915)
