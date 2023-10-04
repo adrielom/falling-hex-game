@@ -26,16 +26,12 @@ public class CameraMovement
         Vector3 parentPosition = parent.Position;
         if (inputEventMouse is InputEventMouseMotion eventMouseMotion)
         {
-            float clampedXPosition = eventMouseMotion.Relative.X;
-            float clampedYPosition = eventMouseMotion.Relative.Y;
-            // _camera.RotateObjectLocal(Vector3.Up, -clampedXPosition * _speed);
-            // _camera.RotateObjectLocal(Vector3.Right, -clampedYPosition * _speed);
-            parent.RotateObjectLocal(Vector3.Up, clampedXPosition * _speed);
-            GD.Print($"pos at: {clampedXPosition} {clampedYPosition}");
+
+            parent.RotateObjectLocal(Vector3.Up, eventMouseMotion.Relative.X * _speed);
             _timer.Start();
 
             _rotationX += -eventMouseMotion.Relative.X * _speed;
-            _rotationY += eventMouseMotion.Relative.Y * _speed;
+            _rotationY += _rotationY * _speed;
 
             // reset rotation
             Transform3D transform = new()
@@ -46,6 +42,7 @@ public class CameraMovement
 
             parent.RotateObjectLocal(Vector3.Up, _rotationX); // first rotate about Y
             parent.RotateObjectLocal(Vector3.Right, _rotationY); // then rotate about X
+            // if (parent.Rotation.Y <= 3 && parent.Rotation.Y > 0)
             parent.Position = parentPosition;
         }
     }
