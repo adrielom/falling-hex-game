@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace Hex
@@ -15,6 +16,7 @@ namespace Hex
         List<Node3D> _floor;
         PackedScene _scene;
         Node3D _parent;
+        float _offset = 4f;
         int _size;
         public static IFloorBuilder hexFloorBuiler;
 
@@ -32,6 +34,7 @@ namespace Hex
         public void Build(Node3D entry = null)
         {
             Node3D instance = entry;
+            int id = 0;
             Label3D label = null;
             if (instance == null)
             {
@@ -45,19 +48,29 @@ namespace Hex
                 label.Text = $"{instance.Position.X} {instance.Position.Y} {instance.Position.Z}";
 
             }
-            GD.Print("oi");
             Node3D neighbourPositionParent = instance.GetNode(NEIGHBOURS_POSITIONS) as Node3D;
+            GD.Print(instance.Name);
 
-            GD.Print(neighbourPositionParent);
-            for (int i = 0; i < _size; i++)
+            for (int i = 1; i < _size; i++)
             {
                 for (int j = 0; j < neighbourPositionParent.GetChildCount(); j++)
                 {
+                    Vector3 offsetRingPos = Vector3.Zero;
+                    if (i % 2 == 0)
+                    {
+                        // offsetRingPos = Vector3.One * 1.5f;
+                        // offsetRingPos.Y = 0;
+                    }
+                    Vector3 neighbourPos = (neighbourPositionParent.GetChild(j) as Node3D).Position;
+                    Vector3 targetPos = neighbourPos * i * _offset;
+
+                    // if (Floor.Find(el => el.Position == targetPos) != null) break;
+
                     instance = (Node3D)_scene.Instantiate();
+                    instance.Position = targetPos;
                     Floor.Add(instance);
-                    instance.Position = (neighbourPositionParent.GetChild(j) as Node3D).Position * i;
                     label = instance.GetNode("positionLabel") as Label3D;
-                    label.Text = $"{instance.Position.X} {instance.Position.Y} {instance.Position.Z}";
+                    label.Text = $"ID = {id} {instance.Position.X} {instance.Position.Y} {instance.Position.Z}";
                     _parent.AddChild(instance);
                 }
             }

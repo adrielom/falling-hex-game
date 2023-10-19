@@ -16,7 +16,7 @@ namespace Scripts.Configs
         private UI_CANCEL_STATE uiCancelState = UI_CANCEL_STATE.ENTER;
         public MainConfigs()
         {
-            Input.MouseMode = Input.MouseModeEnum.Captured;
+            // Input.MouseMode = Input.MouseModeEnum.Captured;
         }
 
 

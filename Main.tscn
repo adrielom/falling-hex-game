@@ -1,7 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://bl6q0kosiului"]
+[gd_scene load_steps=7 format=3 uid="uid://bl6q0kosiului"]
 
 [ext_resource type="PackedScene" uid="uid://d3l6fu7n1ki0g" path="res://Scenes/HexContainer.tscn" id="1_kyx2x"]
+[ext_resource type="PackedScene" uid="uid://bwyjp0dtxuyud" path="res://Scenes/penguin.tscn" id="2_i6hj8"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraFacade.cs" id="3_kqyaw"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7rg1l"]
+sky_top_color = Color(0.45098, 0.737255, 1, 1)
+sky_horizon_color = Color(0.687255, 0.755883, 0.92549, 1)
+sky_energy_multiplier = 0.55
+ground_bottom_color = Color(0.298039, 0.286275, 0.701961, 1)
+ground_horizon_color = Color(0.687255, 0.755883, 0.92549, 1)
+
+[sub_resource type="Sky" id="Sky_tk1od"]
+sky_material = SubResource("ProceduralSkyMaterial_7rg1l")
+
+[sub_resource type="Environment" id="Environment_mscdp"]
+background_mode = 2
+sky = SubResource("Sky_tk1od")
+tonemap_mode = 1
 
 [node name="Main" type="Node3D"]
 
 [node name="hexContainer" parent="." instance=ExtResource("1_kyx2x")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mscdp")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -0.883766, 0.46793, 0, -0.46793, -0.883766, 0, 12.7994, -2.38419e-07)
+light_energy = 1.085
+
+[node name="penguim" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_i6hj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.43476, -2.38419e-07)
+Speed = 150.0
+FallAcceleration = 2400.0
+camera = NodePath("Camera3D")
+jumpSpeed = 3.8
+
+[node name="Camera3D" type="Camera3D" parent="penguim"]
+transform = Transform3D(-1, -1.87728e-08, 8.53834e-08, 0, 0.976672, 0.214735, -8.74228e-08, 0.214735, -0.976672, 0, 1.86, -1.984)
+script = ExtResource("3_kqyaw")
